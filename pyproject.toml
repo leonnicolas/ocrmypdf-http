@@ -7,8 +7,8 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-uvicorn = "^0.17.6"
-fastapi = "^0.78.0"
+uvicorn = "^0.18"
+fastapi = "^0.85.0"
 ocrmypdf = "^13.4.4"
 python-multipart = "^0.0.5"
 prometheus-fastapi-instrumentator = "^5.8.1"
