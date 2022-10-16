@@ -22,6 +22,21 @@ jobs:
           poetry install
           make check-lint
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker/build-push-action@v2
+        with:
+          tags: test-image:local
+          push: false
+      - name: Smoke Test
+        run: |
+          docker run -d -p 8080:8080 test-image:local
+          sleep 3
+          curl 'localhost:8080/openapi.json' --fail
+          curl -X 'POST' 'localhost:8080/ocr/pdf?force_ocr=true' -H 'accept: application/json' -H 'Content-Type: multipart/form-data' -F 'file=@lorem.pdf;type=application/pdf' --fail -o output.pdf
+
   push:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
