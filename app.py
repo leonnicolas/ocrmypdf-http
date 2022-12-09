@@ -47,7 +47,7 @@ async def create_upload_file(
     except ocrmypdf.PriorOcrFoundError as ex:
         raise HTTPException(
             detail="page already has text! Set force-ocr to continue",
-            status_code=status.HTTP_400_BAD_REQUEST,
+            status_code=status.HTTP_409_CONFLICT,
         ) from ex
     except ocrmypdf.PdfMergeFailedError as ex:
         raise HTTPException(
